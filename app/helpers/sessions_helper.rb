@@ -16,6 +16,10 @@ module SessionsHelper
         end
     end
     
+    # Returns true if the given user is the current user.
+    def current_user?(user)
+        user && user == current_user
+    end
 
     
     def forget(user)
@@ -43,5 +47,9 @@ module SessionsHelper
         cookies.permanent[:remember_token] = user.remember_token
     end
 
+
+    def store_location
+        session[:forwarding_url] = request.original_url if request.get?
+    end
     
 end
